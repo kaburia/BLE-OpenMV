@@ -1,37 +1,15 @@
-# GIF Video Recording Example
-#
-# Note: You will need an SD card to run this example.
-#
-# You can use your OpenMV Cam to record gif files. You can either feed the
-# recorder object RGB565 frames or Grayscale frames. Use photo editing software
-# like GIMP to compress and optimize the Gif before uploading it to the web.
+# Untitled - By: Austin - Tue May 23 2023
 
-import sensor, image, time, gif
+import sensor, image, time
 
-RED_LED_PIN = 1
-BLUE_LED_PIN = 3
+sensor.reset()
+sensor.set_pixformat(sensor.GRAYSCALE)
+sensor.set_framesize(sensor.QVGA)
+sensor.skip_frames(time = 2000)
 
-sensor.reset() # Initialize the camera sensor.
-sensor.set_pixformat(sensor.RGB565) # or sensor.GRAYSCALE
-sensor.set_framesize(sensor.QQVGA) # or sensor.QVGA (or others)
-sensor.skip_frames(time = 2000000) # Let new settings take affect.
-clock = time.clock() # Tracks FPS.
+clock = time.clock()
 
-#pyb.LED(RED_LED_PIN).on()
-sensor.skip_frames(time = 2000) # Give the user time to get ready.
-
-#pyb.LED(RED_LED_PIN).off()
-#pyb.LED(BLUE_LED_PIN).on()
-
-g = gif.Gif("example.gif", loop=True)
-
-print("You're on camera!")
-for i in range(100):
+while(True):
     clock.tick()
-    # clock.avg() returns the milliseconds between frames - gif delay is in
-    g.add_frame(sensor.snapshot(), delay=int(clock.avg()/10)) # centiseconds.
+    img = sensor.snapshot()
     print(clock.fps())
-
-g.close()
-#pyb.LED(BLUE_LED_PIN).off()
-print("Done! Reset the camera to see the saved recording.")
