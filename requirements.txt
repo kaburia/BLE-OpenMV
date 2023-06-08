@@ -1,0 +1,16 @@
+bleak==0.20.2
+Flask==2.2.2
+image==1.5.33
+sensor==6
+numpy
+pandas
+os
+keras
+tensorflow
+matplotplib
+plotly
+seaborn
+sklearn
+PIL
+IPython
+opencv-python
